@@ -6,32 +6,51 @@ Optionally if a 20 character x 4 line LCD is connected via the i2c bus then it w
 **This pendant uses grbl 1.1 jogging commands and so will only work with grbl controlled machines**
 
 ## To Do
-Basica functionality exists and works, but this file needs writing to document things properly, and so at this stage I suggest this pendant is **only used by people who know how to install software and upgrade software on linux.**
+Basica functionality exists and works, but this file needs writing to document things properly and other things to do include:
 
-Other things to do include:
-
+* Document how to make the pendant auto start
 * Command line option to change LCD address and bus.
 * Re-mappable buttons.
 * Z Axis Probe
 * Per Axis direction reverse configuration
 * Configurable step distances
 
-## Installation
+## Installation Prerequisite
 
-**Prerequisite**
+You need to be running cncjs with the [cancelJog PR #512](https://github.com/cncjs/cncjs/pull/512) applied. This PR has not yet been merged, so in the mean time you can find a version of cncjs with this PR merged (and no other changes) at [https://github.com/bensuffolk/cncjs](https://github.com/bensuffolk/cncjs)
 
-You need to be running cncjs with the [cancelJog PR #512](https://github.com/cncjs/cncjs/pull/512) applied. This PR has not yet been merged, so in the mean time you can find a version of cncjs with this PR merged (and not other changes) at [https://github.com/bensuffolk/cncjs](https://github.com/bensuffolk/cncjs)
+To upgrade make sure you have git installed 
 
-Future documentation will provide details about how to upgrade an existing cncjs, for the moment this pendant is only recommended for people who know how to do this.
+```
+sudo apt install git
+```
+Then download and build the modified version
+
+```
+git clone https://github.com/bensuffolk/cncjs
+cd cncjs
+npm install
+```
+
+Remove and the current version and install the new one (make sure you are still in the cncjs directory from above)
+
+```
+sudo npm uninstall -g cncjs
+sudo npm install -g --unsafe-perm
+```
 
 By default, the udev system adds ShuttleXpress as root only access. To fix this, you need to copy 99-Shuttle.rules to /etc/udev/rules.d and reboot
 
 ```
 sudo cp 99-Shuttle.rules /etc/udev/rules.d
+```
+Now reboot and move onto the Installation of the pendant
+
+```
 sudo reboot
 ```
 
-Install pendant
+## Installation
 
 ```
 npm install
