@@ -24,6 +24,15 @@ You need to be running cncjs with the [cancelJog PR #512](https://github.com/cnc
 
 Future documentation will provide details about how to upgrade an existing cncjs, for the moment this pendant is only recommended for people who know how to do this.
 
+By default, the udev system adds ShuttleXpress as root only access. To fix this, you need to copy 99-Shuttle.rules to /etc/udev/rules.d and reboot
+
+```
+sudo cp 99-Shuttle.rules /etc/udev/rules.d
+sudo reboot
+```
+
+Install pendant
+
 ```
 npm install
 ```
