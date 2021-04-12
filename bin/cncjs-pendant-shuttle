@@ -22,7 +22,9 @@ program.version(pkg.version)
        .option('-v, --verbose', 'Increase the verbosity level (-v, -vvv)', increaseVerbosityLevel, 0)
        .option('--socket-address <address>', 'socket address or hostname (default: localhost)', 'localhost')
        .option('--socket-port <port>', 'socket port (default: 8000)', 8000)
-       .option('--access-token-lifetime <lifetime>', 'access token lifetime in seconds or a time span string (default: 30d)', '30d');
+       .option('--access-token-lifetime <lifetime>', 'access token lifetime in seconds or a time span string (default: 30d)', '30d')
+       .option('--i2c-bus <bus>', 'Set the i2c bus for the LCD (default: 1)', '1')
+       .option('--lcd-address <address>', 'Set the i2c address for the LCD (default: 0x27)', '0x27');
 
 // Parse command line
 program.parse(process.argv);
@@ -36,7 +38,9 @@ var options = {
   socketAddress: program.socketAddress,
   socketPort: program.socketPort,
   accessTokenLifetime: program.accessTokenLifetime,
-  verbosity: program.verbose
+  verbosity: program.verbose,
+  i2cBus: Number(program.i2cBus),
+  lcdAddress: Number(program.lcdAddress),
 };
 
 

@@ -9,7 +9,6 @@ Optionally if a 20 character x 4 line LCD is connected via the i2c bus then it w
 Basica functionality exists and works, but this file needs writing to document things properly and other things to do include:
 
 * Document how to make the pendant auto start
-* Command line option to change LCD address and bus.
 * Re-mappable buttons.
 * Z Axis Probe
 * Per Axis direction reverse configuration
@@ -32,7 +31,7 @@ cd cncjs
 npm install
 ```
 
-Remove and the current version and install the new one (make sure you are still in the cncjs directory from above)
+Remove the current version and install the new one (make sure you are still in the cncjs directory from above)
 
 ```
 sudo npm uninstall -g cncjs
@@ -58,13 +57,42 @@ npm install
 
 ## Usage
 
-Bare minimum usage, where `port` should be substituted with the actual port in use by Grbl, e.g. /dev/ttyAMA0
-
 ```
 bin/cncjs-pendant-shuttle -p port
 ```
 
-The secret will be read from the default server rc file which is normally `~/.cncrc` but if you have installed cncjs via the  [cncjs/cncjs-pi-raspbian](https://github.com/cncjs/cncjs-pi-raspbian) script then you will need to specify it with `-c ~/.cncjs/cncrc.cfg`
+If you have installed cncjs via the [cncjs/cncjs-pi-raspbian](https://github.com/cncjs/cncjs-pi-raspbian) script then you will need
+
+```
+bin/cncjs-pendant-shuttle -p port -c ~/.cncjs/cncrc.cfg
+```
+
+### Command line options:
+
+`-p` `--port` *port* **REQUIRED** The serial port on the cncjs server that is connected to Grbl. e.g. */dev/ttyS0*
+
+`-s` `--secret` *secret* The cncjs authentication secret. Defaults to reading from the rc file
+
+`-c` `--config` *rc file* The cncjs server rc file. Defaults to  *~./cncrc* 
+
+`-b` `--baudrate` *baudrate* The baudrate of the connection to Grbl. Defaults to *115200*
+
+`-v` `--verbose` Increase the ammount of loging. Can be specified multiple times, e.g. `-vvv`
+
+`--socket-address` *address* The socket address of the cncjs server. Defaults to *localhost*
+
+`--socket-port` *port* The socket port of the cncjs server. Defaults to *8000*
+
+`--access-token-lifetime` *lifetime* The lenght of time the authentication token will last. Defaults to *30d*
+
+`--i2c-bus` *bus* The i2c bus that the LCD is connected to. Defaults to *1*
+
+`--lcd-address` *address* The i2c address of the LCD. Defaults to *0x27*
+
+
+
+### Operation:
+
 
 `Button 1` Currently does nothing, but will be used for Z Probing
 

@@ -1,7 +1,7 @@
 {
   "name": "cncjs-pendant-shuttle",
   "version": "0.1.0",
-  "description": "A cncjs pendant for Grbl and Shuttle Xpress ",
+  "description": "A cncjs pendant for Grbl and ShuttleXpress",
   "main": "./index.js",
   "engines": {
     "node": ">=4"
@@ -23,7 +23,10 @@
     "shuttle",
     "xpress"
   ],
-  "author": "Ben Suffolk <ben@vanilla.et>",
+  "author": {
+    "name": "Ben Suffolk",
+    "email": "ben@vanilla.net"
+  },
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/bensuffolk/cncjs-pendant-shuttle/issues"
@@ -36,6 +39,7 @@
     "serialport": "^8.0.7",
     "socket.io-client": "^2.3.0",
     "shuttle-control-usb": "hopejr/ShuttleControlUSB#v1.0.4",
-    "raspberrypi-liquid-crystal": "^1.15.0"
+    "raspberrypi-liquid-crystal": "^1.15.0",
+    "async-mutex": "^0.3.1"
   }
 }
