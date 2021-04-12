@@ -1,0 +1,44 @@
+#!/usr/bin/env node
+
+// Required Modules
+var pkg = require('../package.json');
+var path = require('path');
+var program = require('commander');
+const pendant = require('../lib/pendant');
+
+// Default rc file location
+const getUserHome = () => (process.env[(process.platform === 'win32') ? 'USERPROFILE' : 'HOME']);
+const rcfile = path.resolve(getUserHome(), '.cncrc');
+
+// Command line options
+var options = {};
+const increaseVerbosityLevel = (val, total) => { return total + 1; };
+program.version(pkg.version)
+       .usage('-s <secret> -p <port> [options]')
+       .option('-c, --config <filename>', 'Set config file (default: ~/.cncrc)', rcfile)
+       .option('-s, --secret', 'the server secret key stored in the ~/.cncrc file (will be read from .cncrc file if present)')
+       .option('-p, --port <port>', 'path or name of serial port')
+       .option('-b, --baudrate <baudrate>', 'baud rate (default: 115200)', 115200)
+       .option('-v, --verbose', 'Increase the verbosity level (-v, -vvv)', increaseVerbosityLevel, 0)
+       .option('--socket-address <address>', 'socket address or hostname (default: localhost)', 'localhost')
+       .option('--socket-port <port>', 'socket port (default: 8000)', 8000)
+       .option('--access-token-lifetime <lifetime>', 'access token lifetime in seconds or a time span string (default: 30d)', '30d');
+
+// Parse command line
+program.parse(process.argv);
+
+// Build options from command line
+var options = {
+  configFile: program.config,
+  secret: program.secret,
+  port: program.port,
+  baudrate: program.baudrate,
+  socketAddress: program.socketAddress,
+  socketPort: program.socketPort,
+  accessTokenLifetime: program.accessTokenLifetime,
+  verbosity: program.verbose
+};
+
+
+// Start the pendant
+pendant(options);
