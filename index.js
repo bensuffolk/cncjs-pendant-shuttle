@@ -37,7 +37,7 @@ const get = require('lodash/get');
 module.exports = function(options, callback) {
 
   // Use the config file specified in the path, or the default one
-  const rcfile = path.resolve(options.configFile);
+  const rcfile = path.resolve(options.config);
 
   // If no secret is passed on the command line, check the EVN var
   options.secret = get(options, 'secret', process.env['CNCJS_SECRET']);
@@ -79,7 +79,7 @@ module.exports = function(options, callback) {
 
 
   socket.on('error', (err) => {
-    if (options.verbosity) {
+    if (options.verbose) {
       console.error('Connection error.');
     }
     
@@ -93,14 +93,14 @@ module.exports = function(options, callback) {
 
 
   socket.on('close', () => {
-    if (options.verbosity) {
+    if (options.verbose) {
       console.log('Connection closed.');
     }
   });
 
 
   socket.on('serialport:open', function(portOptions) {
-    if (options.verbosity) {
+    if (options.verbose) {
       console.log('Connected to port "' + portOptions.port + '" (Baud rate: ' + portOptions.baudrate + ')');
     }
     callback(null, socket);
@@ -113,7 +113,7 @@ module.exports = function(options, callback) {
   
   
   process.on('SIGINT', function() {
-    if (options.verbosity) {
+    if (options.verbose) {
       console.log('Terminating');
     }
     socket.close();

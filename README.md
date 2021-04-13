@@ -12,7 +12,6 @@ Basica functionality exists and works, but this file needs writing to document t
 * Re-mappable buttons.
 * Z Axis Probe
 * Per Axis direction reverse configuration
-* Configurable step distances
 
 ## Installation Prerequisite
 
@@ -20,12 +19,12 @@ You need to be running cncjs with the [cancelJog PR #512](https://github.com/cnc
 
 To upgrade make sure you have git installed 
 
-```
+```shell
 sudo apt install git
 ```
 Then download and build the modified version
 
-```
+```shell
 git clone https://github.com/bensuffolk/cncjs
 cd cncjs
 npm install
@@ -33,37 +32,37 @@ npm install
 
 Remove the current version and install the new one (make sure you are still in the cncjs directory from above)
 
-```
+```shell
 sudo npm uninstall -g cncjs
 sudo npm install -g --unsafe-perm
 ```
 
 By default, the udev system adds ShuttleXpress as root only access. To fix this, you need to copy 99-Shuttle.rules to /etc/udev/rules.d and reboot
 
-```
+```shell
 sudo cp 99-Shuttle.rules /etc/udev/rules.d
 ```
 Now reboot and move onto the Installation of the pendant
 
-```
+```shell
 sudo reboot
 ```
 
 ## Installation
 
-```
+```shell
 npm install
 ```
 
 ## Usage
 
-```
+```shell
 bin/cncjs-pendant-shuttle -p port
 ```
 
 If you have installed cncjs via the [cncjs/cncjs-pi-raspbian](https://github.com/cncjs/cncjs-pi-raspbian) script then you will need
 
-```
+```shell
 bin/cncjs-pendant-shuttle -p port -c ~/.cncjs/cncrc.cfg
 ```
 
@@ -89,6 +88,7 @@ bin/cncjs-pendant-shuttle -p port -c ~/.cncjs/cncrc.cfg
 
 `--lcd-address` *address* The i2c address of the LCD. Defaults to *0x27*
 
+`--step-distance` *distance* ... Set the Step distances to toggle between when pressing the *Change Step Distance* button. Defaults to 0.01 0.1 1
 
 
 ### Operation:
