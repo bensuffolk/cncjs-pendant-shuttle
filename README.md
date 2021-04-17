@@ -84,6 +84,8 @@ bin/cncjs-pendant-shuttle -p port -c ~/.cncjs/cncrc.cfg
 
 `--access-token-lifetime` *lifetime* The lenght of time the authentication token will last. Defaults to *30d*
 
+`--no-lcd` Do not attempt to conect to an LCD
+
 `--i2c-bus` *bus* The i2c bus that the LCD is connected to. Defaults to *1*
 
 `--lcd-address` *address* The i2c address of the LCD. Defaults to *0x27*

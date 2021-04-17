@@ -23,6 +23,7 @@ program.version(pkg.version)
        .option('--socket-address <address>', 'socket address or hostname (default: localhost)', 'localhost')
        .option('--socket-port <port>', 'socket port (default: 8000)', 8000)
        .option('--access-token-lifetime <lifetime>', 'access token lifetime in seconds or a time span string (default: 30d)', '30d')
+       .option('--no-lcd', 'Do not connect to an LCD')
        .option('--i2c-bus <bus>', 'Set the i2c bus for the LCD (default: 1)', '1')
        .option('--lcd-address <address>', 'Set the i2c address for the LCD (default: 0x27)', '0x27')
        .option('--step-distance <distance...>', 'Set the step distance (default: 0.01 0.1 1) ', [0.01, 0.1, 1]);
