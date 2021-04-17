@@ -26,7 +26,10 @@ program.version(pkg.version)
        .option('--no-lcd', 'Do not connect to an LCD')
        .option('--i2c-bus <bus>', 'Set the i2c bus for the LCD (default: 1)', '1')
        .option('--lcd-address <address>', 'Set the i2c address for the LCD (default: 0x27)', '0x27')
-       .option('--step-distance <distance...>', 'Set the step distance (default: 0.01 0.1 1) ', [0.01, 0.1, 1]);
+       .option('--step-distance <distance...>', 'Set the step distance (default: 0.01 0.1 1) ', [0.01, 0.1, 1])
+       .option('--reverse-x', 'Reverse the X jog direction')
+       .option('--reverse-y', 'Reverse the Y jog direction')
+       .option('--reverse-z', 'Reverse the Z jog direction');
 
 // Parse command line
 program.parse(process.argv);

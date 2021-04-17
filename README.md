@@ -11,7 +11,6 @@ Basica functionality exists and works, but this file needs writing to document t
 * Document how to make the pendant auto start
 * Re-mappable buttons.
 * Z Axis Probe
-* Per Axis direction reverse configuration
 
 ## Installation Prerequisite
 
@@ -90,7 +89,13 @@ bin/cncjs-pendant-shuttle -p port -c ~/.cncjs/cncrc.cfg
 
 `--lcd-address` *address* The i2c address of the LCD. Defaults to *0x27*
 
-`--step-distance` *distance* ... Set the Step distances to toggle between when pressing the *Change Step Distance* button. Defaults to 0.01 0.1 1
+`--step-distance` *distance* ... Set the Step distances to toggle between when pressing the *Change Step Distance* button. Defaults to *0.01 0.1 1*
+
+`--reverse-x` Reverse the X axis jog direction.
+
+`--reverse-y` Reverse the Y axis jog direction.
+
+`--reverse-z` Reverse the Z axis jog direction.
 
 
 ### Operation:
