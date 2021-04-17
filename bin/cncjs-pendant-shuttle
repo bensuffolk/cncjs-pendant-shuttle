@@ -4,7 +4,7 @@
 var pkg = require('../package.json');
 var path = require('path');
 const {program} = require('commander');
-const pendant = require('../lib/pendant');
+const Pendant = require('../lib/pendant');
 
 // Default rc file location
 const getUserHome = () => (process.env[(process.platform === 'win32') ? 'USERPROFILE' : 'HOME']);
@@ -31,4 +31,4 @@ program.version(pkg.version)
 program.parse(process.argv);
 
 // Start the pendant
-pendant(program.opts());
+new Pendant(program.opts());

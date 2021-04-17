@@ -33,6 +33,7 @@ const path = require('path');
 const io = require('socket.io-client');
 const jwt = require('jsonwebtoken');
 const get = require('lodash/get');
+const logger = require('./lib/logger');
 
 module.exports = function(options, callback) {
 
@@ -48,14 +49,14 @@ module.exports = function(options, callback) {
       const config = JSON.parse(fs.readFileSync(rcfile, 'utf8'));
       options.secret = config.secret;
     } catch (err) {
-      console.error(err);
+      logger.error(JSON.stringify(e), 'index');
       process.exit(1);
     }
   }
 
   // Port is required
   if(!options.port) {
-    console.error('Error: you mst specify a Grbl port to connect to');
+    logger.error('Error: you mst specify a Grbl port to connect to');
     process.exit(1);
   }
   
@@ -68,7 +69,7 @@ module.exports = function(options, callback) {
 
   // Set up some basic socket handlers
   socket.on('connect', () => {
-    console.log('Connected to ' + url);
+    logger.log(logger.level.CRITICAL, 'Connected to ' + url, 'index', 'socket->connect');
 
      // Open remote port to the Grbl controller. Note only Grbl is supported in this pendant
      socket.emit('open', options.port, {
@@ -79,10 +80,6 @@ module.exports = function(options, callback) {
 
 
   socket.on('error', (err) => {
-    if (options.verbose) {
-      console.error('Connection error.');
-    }
-    
     if (socket) {
       socket.destroy();
       socket = null;
@@ -93,16 +90,12 @@ module.exports = function(options, callback) {
 
 
   socket.on('close', () => {
-    if (options.verbose) {
-      console.log('Connection closed.');
-    }
+    logger.log(logger.level.WARN, 'Connection closed.', 'index', 'socket->close');
   });
 
 
   socket.on('serialport:open', function(portOptions) {
-    if (options.verbose) {
-      console.log('Connected to port "' + portOptions.port + '" (Baud rate: ' + portOptions.baudrate + ')');
-    }
+    logger.log(logger.level.WARN, 'Connected to port "' + portOptions.port + '" (Baud rate: ' + portOptions.baudrate + ')', 'index', 'socket->serialport->open');
     callback(null, socket);
   });
 
@@ -113,9 +106,7 @@ module.exports = function(options, callback) {
   
   
   process.on('SIGINT', function() {
-    if (options.verbose) {
-      console.log('Terminating');
-    }
+    logger.log(logger.level.INFO, `requested to stop`, 'index', 'process->SIGINT');
     socket.close();
     
     setImmediate(() => {
