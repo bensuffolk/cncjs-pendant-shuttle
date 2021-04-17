@@ -9,7 +9,6 @@ Optionally if a 20 character x 4 line LCD is connected via the i2c bus then it w
 Basica functionality exists and works, but this file needs writing to document things properly and other things to do include:
 
 * Document how to make the pendant auto start
-* Re-mappable buttons.
 * Z Axis Probe
 
 ## Installation Prerequisite
@@ -97,19 +96,25 @@ bin/cncjs-pendant-shuttle -p port -c ~/.cncjs/cncrc.cfg
 
 `--reverse-z` Reverse the Z axis jog direction.
 
+`--button-x` *button* The button number for X. Defaults to 2
+
+`--button-y` *button* The button number for Y. Defaults to 3
+
+`--button-z` *button* The button number for Z. Defaults to 4
+
+`--button-step` *button* The button number for Step. Defaults to 4
+
 
 ### Operation:
 
 
-`Button 1` Currently does nothing, but will be used for Z Probing
+`Axis X button` Set X Axis (Default Axis on connection). See `--button-x`
 
-`Button 2` Set X Axis (Default)
+`Axis Y button ` Set Y Axis See `--button-y`
 
-`Button 3` Set Y Axis
+`Axis Z button ` Set Z Axis. See `--button-z`
 
-`Button 4` Set Z Axis
-
-`Button 5` Change Step Distance `0.01` `0.1` `1`
+`Button Step` Change Step Distance (defaults to `0.01` `0.1` `1`). See `--step-distance`
 
 Press an Axis button to change which Axis will be the target of the jog. If you press and hold an Axis button for 1 second it will zero the work coordinates to the current position. e.g. `G10 L20 P1 X0` for the X Axis
 

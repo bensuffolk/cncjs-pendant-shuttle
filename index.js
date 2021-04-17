@@ -49,15 +49,15 @@ module.exports = function(options, callback) {
       const config = JSON.parse(fs.readFileSync(rcfile, 'utf8'));
       options.secret = config.secret;
     } catch (err) {
-      logger.error(JSON.stringify(e), 'index');
-      process.exit(1);
+      callback(err.name + ': ' + err.message);
+      return;
     }
   }
 
   // Port is required
   if(!options.port) {
-    logger.error('Error: you mst specify a Grbl port to connect to');
-    process.exit(1);
+    callback('Error: you must specify a Grbl port to connect to');
+    return;
   }
   
   // Build the token and url for the WebSocket
@@ -101,7 +101,7 @@ module.exports = function(options, callback) {
 
 
   socket.on('serialport:error', function(portOptions) {
-    callback(new Error('Error opening serial port "' + portOptions.port + '"'));
+    callback();
   });
   
   
