@@ -99,6 +99,17 @@ module.exports = function(options, callback) {
     callback(null, socket);
   });
 
+  socket.on('serialport:close', function() {
+    logger.log(logger.level.CRITICAL, 'Server closed serial port', 'index', 'socket->serialport->close');
+
+    socket.emit('open', options.port, {
+      baudrate: Number(options.baudrate),
+      controllerType: 'Grbl'
+    });
+
+  });
+
+
 
   socket.on('serialport:error', function(portOptions) {
     callback();
