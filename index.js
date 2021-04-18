@@ -116,8 +116,8 @@ module.exports = function(options, callback) {
   });
   
   
-  process.on('SIGINT', function() {
-    logger.log(logger.level.INFO, `requested to stop`, 'index', 'process->SIGINT');
+  process.on('SIGTERM', function() {
+    logger.log(logger.level.INFO, `requested to stop`, 'index', 'process->SIGTERM');
     socket.close();
     
     setImmediate(() => {
