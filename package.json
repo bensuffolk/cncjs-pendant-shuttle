@@ -1,6 +1,6 @@
 {
   "name": "cncjs-pendant-shuttle",
-  "version": "0.1.0",
+  "version": "1.0.0",
   "description": "A cncjs pendant for Grbl and ShuttleXpress",
   "main": "./index.js",
   "engines": {
@@ -38,9 +38,10 @@
     "lodash": "^4.17.15",
     "serialport": "^8.0.7",
     "socket.io-client": "^2.3.0",
-    "shuttle-control-usb": "hopejr/ShuttleControlUSB#v1.0.4",
+    "shuttle-control-usb": "git@github.com:hopejr/ShuttleControlUSB.git#v1.0.4",
     "raspberrypi-liquid-crystal": "^1.15.0",
     "async-mutex": "^0.3.1",
-    "deep-equal": "^2.0.5"
+    "deep-equal": "^2.0.5",
+    "p-event": "^4.2.0"
   }
 }

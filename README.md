@@ -5,12 +5,6 @@ Optionally if a 20 character x 4 line LCD is connected via the i2c bus then it w
 
 **This pendant uses grbl 1.1 jogging commands and so will only work with grbl controlled machines**
 
-## To Do
-Basica functionality exists and works, but this file needs writing to document things properly and other things to do include:
-
-* Document how to make the pendant auto start
-* Z Axis Probe
-
 ## Installation Prerequisite
 
 You need to be running cncjs with the [cancelJog PR #512](https://github.com/cncjs/cncjs/pull/512) applied. This PR has not yet been merged, so in the mean time you can find a version of cncjs with this PR merged (and no other changes) at [https://github.com/bensuffolk/cncjs](https://github.com/bensuffolk/cncjs)
@@ -49,7 +43,21 @@ sudo reboot
 ## Installation
 
 ```shell
+git clone https://github.com/bensuffolk/cncjs-pendant-shuttle
+cd cncjs-pendant-shuttle
 npm install
+sudo npm install -g --unsafe-perm
+```
+
+## Auto run on boot
+
+Edit the cncjs-pendant-shuttle.service file to set the command line options you require.
+
+```shell
+sudo cp cncjs-pendant-shuttle.service /etc/systemd/system/
+sudo systemctl daemon-reload
+sudo systemctl enable cncjs-pendant-shuttle
+sudo systemctl start cncjs-pendant-shuttle
 ```
 
 ## Usage
@@ -64,7 +72,7 @@ If you have installed cncjs via the [cncjs/cncjs-pi-raspbian](https://github.com
 bin/cncjs-pendant-shuttle -p port -c ~/.cncjs/cncrc.cfg
 ```
 
-### Command line options:
+### Command line options
 
 `-p` `--port` *port* **REQUIRED** The serial port on the cncjs server that is connected to Grbl. e.g. */dev/ttyS0*
 
@@ -104,8 +112,12 @@ bin/cncjs-pendant-shuttle -p port -c ~/.cncjs/cncrc.cfg
 
 `--button-step` *button* The button number for Step. Defaults to 4
 
+`--plate-height` *height* The height of the proble plate. Defaults to 20
 
-### Operation:
+`--probe-feedrate` *feedrate* The feedrate to use for probing. Defaults to 75
+
+
+### Jogging
 
 
 `Axis X button` Set X Axis (Default Axis on connection). See `--button-x`
@@ -123,3 +135,18 @@ Turn the center jog dial and each increment will step the selected axis by the s
 Twist the outer shuttle ring the selected axis will continue to move in the twisted directino until released. Twising the ring further will increase the speed of movement.
 
 The shuttle speed is automatically calculated based on the maximum feed rate and acceleration for the selected axis. If you have a machine with slow acceleration rate, then the shuttle will be naturally slower (in order to make sure the shuttle does not run on due to deceleration time)
+
+
+### Probing
+
+Probing is initialted by holding the `Probe Button` down for 1 second.
+
+The probing sequence will being by lowering the Z axis using the feedrate specified in `--probe-feedrate` until it makes contact with the probe p[ate.
+
+At this point it will raise the Z axis by 1mm, and being probing again at a lower rate of 20mm / Min.
+
+Once it makes contact with the probe plate a second time it will zero out the Z axis work coordinates using the `--plate-height` which defaults to 20mm.
+
+It will then return the Z axis to the position it was in before probing began.
+
+If during probing you realise you have made a mistake, e.g. you forgot to attache the probe wire or put the plate in the right place, you can press the `Probe Button` again and probing will be immediatly stopped and the Z axis returned to the position it was in before probing began.
