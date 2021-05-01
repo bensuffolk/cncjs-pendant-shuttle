@@ -29,21 +29,34 @@ sudo npm uninstall -g cncjs
 sudo npm install -g --unsafe-perm
 ```
 
+## Installation
+
+
+```shell
+git clone https://github.com/bensuffolk/cncjs-pendant-shuttle
+cd cncjs-pendant-shuttle
+```
+
+We need to have udev development libraries / headers installed to build the node package.
+
+```shell
+sudo apt install libudev-dev
+```
+
 By default, the udev system adds ShuttleXpress as root only access. To fix this, you need to copy 99-Shuttle.rules to /etc/udev/rules.d and reboot
 
 ```shell
 sudo cp 99-Shuttle.rules /etc/udev/rules.d
 ```
+
 Now reboot and move onto the Installation of the pendant
 
 ```shell
 sudo reboot
 ```
+Pendant Install
 
-## Installation
-
-```shell
-git clone https://github.com/bensuffolk/cncjs-pendant-shuttle
+```
 cd cncjs-pendant-shuttle
 npm install
 sudo npm install -g --unsafe-perm
